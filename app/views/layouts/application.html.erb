@@ -73,12 +73,6 @@
                   <% end %>
                 </li>
                 <li>
-                  <%= link_to workspace_connections_path, class: ["flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100", ("bg-gray-100" if request.path == workspace_connections_path)] do %>
-                    <%= content_tag(:i, "cloud_sync", class: "material-icons") %>
-                    <%= content_tag(:span, "Provisioning Workflows", class: "flex-1 ml-3 whitespace-nowrap") %>
-                  <% end %>
-                </li>
-                <li>
                   <%= link_to audit_logs_path, class: ["flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100", ("bg-gray-100" if request.path == audit_logs_path)] do %>
                     <%= content_tag(:i, "event_note", class: "material-icons") %>
                     <%= content_tag(:span, "Audit logs", class: "flex-1 ml-3 whitespace-nowrap") %>

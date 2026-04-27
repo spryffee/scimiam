@@ -21,7 +21,6 @@ Rails.application.routes.draw do
       post 'approve'
     end
   end
-  resources :workspace_connections
   resources :audit_logs, only: [:index]
   resources :ssh_preferences, only: [:index]
   resources :users, only: [:index, :show]

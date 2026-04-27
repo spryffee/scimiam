@@ -13,11 +13,9 @@ class Access < ActiveRecord::Base
   }
 
   # after_create :initialize_approval_workflow
-  after_commit :schedule_provisioning, if: :provisioning_needed?
   after_create :notify_slack_request
   after_commit :notify_slack_status_change, if: :saved_change_to_status?
   after_destroy :notify_slack_revocation
-  # after_destroy :schedule_provisioning
 
   # attr_accessor :performed_by
 
@@ -100,19 +98,6 @@ class Access < ActiveRecord::Base
 
   def self.ransackable_associations(auth_object = nil)
     %w[user role]
-  end
-
-  def schedule_provisioning
-    return unless role&.has_provisioning?
-    ProvisionAccessJob.perform_later(role.id)
-  end
-  
-  def provisioning_needed?
-    saved_change_to_approved? || destroyed? #not clear why I need this gived the access is deleted on revoke
-  end
-  
-  def has_provisioning?
-    workspace_connection_id.present? # TODO || active_directory_group.present?
   end
 
   def notify_slack_request

@@ -74,11 +74,9 @@ class RolesController < ApplicationController
 
   def role_params
     params.require(:role).permit(
-      :name, 
-      :approval_workflow_id, 
-      :term,
-      :workspace_connection_id,
-      :workspace_group
+      :name,
+      :approval_workflow_id,
+      :term
     )
   end
 
