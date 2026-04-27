@@ -13,9 +13,6 @@ class Access < ActiveRecord::Base
   }
 
   # after_create :initialize_approval_workflow
-  after_create :notify_slack_request
-  after_commit :notify_slack_status_change, if: :saved_change_to_status?
-  after_destroy :notify_slack_revocation
 
   # attr_accessor :performed_by
 
@@ -98,54 +95,6 @@ class Access < ActiveRecord::Base
 
   def self.ransackable_associations(auth_object = nil)
     %w[user role]
-  end
-
-  def notify_slack_request
-    payload = {
-      attachments: [{
-        text: "🔐 New access request:\n*#{user.displayname}* has requested access to *#{role.name}*",
-        color: '#FFA500',
-        actions: [
-          {
-            type: "button",
-            text: "Approve",
-            url: "https://#{ENV["HOSTNAME"]}",
-            style: "primary"
-          }
-        ]
-      }]
-    }
-    SlackNotificationService.notify(payload)
-  end
-
-  def notify_slack_status_change
-    return unless saved_change_to_status?
-    
-    if status == 'approved'
-      payload = {
-        attachments: [{
-          text: "✅ Access request approved:\n*#{user.displayname}*'s request for role *#{role.name}* has been approved",
-          color: '#36A64F'
-        }]
-      }
-      SlackNotificationService.notify(payload)
-    end
-  end
-
-  def notify_slack_revocation
-    message = if status == 'pending'
-      "❌ Access request declined:\n*#{user.displayname}*'s request for role *#{role.name}* was declined"
-    else
-      "🚫 Access revoked:\n*#{user.displayname}*'s access role *#{role.name}* was revoked"
-    end
-    
-    payload = {
-      attachments: [{
-        text: message,
-        color: '#DC3545'
-      }]
-    }
-    SlackNotificationService.notify(payload)
   end
 
   # def log_access_event
