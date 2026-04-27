@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :authorize
-  # before_action :is_admin?, only: %i[index show edit update]
-  before_action :set_user, only: %i[show edit update]
+  before_action :set_user, only: %i[show]
   before_action :set_accesses, only: %i[show]
 
   def index
@@ -14,32 +13,7 @@ class UsersController < ApplicationController
   def show
   end
 
-  def edit
-  end
-
-  def update
-    if current_user == @user || current_user.is_admin?
-      if @user.update(user_params)
-        flash[:success] = "Updated"
-        # render turbo_stream: turbo_stream.action(:redirect, user_path(@user))
-        redirect_to root_path
-      else
-        flash.now[:errors] = @user.errors.full_messages
-        render :edit
-      end
-    else
-      flash[:warning] = "You are not authorized to edit this user"
-      redirect_to root_path
-    end
-  end
-
   private
-
-  def user_params
-    params.require(:user).permit(
-      :github_username
-    )
-  end
 
   def set_user
     @user = User.find(params[:id])

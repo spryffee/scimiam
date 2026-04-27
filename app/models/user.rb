@@ -15,7 +15,6 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true
   validates :username, uniqueness: true
-  validates :github_username, uniqueness: true, allow_blank: true
 
   def self.scim_resource_type
     return Scimitar::Resources::User

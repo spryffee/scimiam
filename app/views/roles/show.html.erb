@@ -31,15 +31,6 @@
 
         <div class="px-4 py-2 font-semibold col-span-1">Google Group</div>
         <div class="px-4 py-2 col-span-2"><%= @role.workspace_group || "None" %></div>
-
-        <div class="px-4 py-2 font-semibold col-span-1">GitHub Organization</div>
-        <div class="px-4 py-2 col-span-2"><%= @role.github_connection&.name || "None" %></div>
-
-        <div class="px-4 py-2 font-semibold col-span-1">GutHub Team</div>
-        <div class="px-4 py-2 col-span-2"><%= @role.github_team || "None" %></div>
-
-        <div class="px-4 py-2 font-semibold col-span-1">GitHub accounts to exclude from IAM</div>
-        <div class="px-4 py-2 col-span-2"><%= @role.github_excluded_accounts.join(', ') || "None" %></div>
       </div>
     </div>
   </div>

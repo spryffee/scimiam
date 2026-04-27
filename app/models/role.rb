@@ -6,17 +6,14 @@ class Role < ApplicationRecord
 
   # TODO: maybe it's better to use another abstraction for strategies
   belongs_to :workspace_connection, optional: true
-  belongs_to :github_connection, optional: true
 
-  
+
   validates :name, presence: true
   validates :name, uniqueness: true
-  validates :github_team, uniqueness: { scope: :github_connection_id }, allow_blank: true
 
 
   def has_provisioning?
-    (workspace_connection_id.present? && workspace_group.present?) || 
-    (github_connection_id.present?) # add new strategy via ||
+    workspace_connection_id.present? && workspace_group.present?
   end
 
   def self.ransackable_attributes(auth_object = nil)

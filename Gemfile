@@ -100,6 +100,3 @@ gem 'repost'
 gem 'google-apis-admin_directory_v1', '~> 0.59.0'
 gem 'googleauth', '~> 1.12'
 # gem 'google-api-client', '~> 0.59.0'
-
-# Ruby toolkit for the GitHub API [https://github.com/octokit/octokit.rb]
-gem 'octokit', '~> 9.2'

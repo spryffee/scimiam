@@ -1,8 +1,7 @@
 class ProvisioningService
   STRATEGIES = {
     google_workspace: Provisioning::GoogleWorkspaceStrategy,
-    active_directory: Provisioning::ActiveDirectoryStrategy,
-    github: Provisioning::GithubStrategy
+    active_directory: Provisioning::ActiveDirectoryStrategy
   }.freeze
 
   def self.sync_role(role)
@@ -29,11 +28,6 @@ class ProvisioningService
     # Add Google Workspace strategy if configured
     if @role.workspace_connection_id.present? && @role.workspace_group.present?
       strategies << STRATEGIES[:google_workspace]
-    end
-
-    # Add GitHub strategy if configured
-    if @role.github_connection_id.present?
-      strategies << STRATEGIES[:github]
     end
 
     strategies

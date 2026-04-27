@@ -4,11 +4,6 @@
     <div class="basis-1/2 font-medium text-base">
       User profile
     </div>
-    <div class="basis-1/2 justify-end flex">
-      <% if current_user.is_admin? %>
-        <%= link_to "Edit", edit_user_path(@user), class: "text-blue-500 hover:underline" %>
-      <% end %>
-    </div>
   </div>
 
   <div class="w-full md:w-12/12">
@@ -23,9 +18,6 @@
 
         <div class="px-4 py-2 font-semibold col-span-1">Email</div>
         <div class="px-4 py-2 col-span-2"><%= @user.work_email_address %></div>
-
-        <div class="px-4 py-2 font-semibold col-span-1">Github username</div>
-        <div class="px-4 py-2 col-span-2"><%= @user.github_username %></div>
 
       </div>
     </div>
