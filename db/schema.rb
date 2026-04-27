@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_16_085553) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_27_083420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,8 +67,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_16_085553) do
     t.text "work_email_address"
     t.boolean "is_active", default: true
     t.boolean "is_admin", default: false
-    t.string "ssh_username"
-    t.text "ssh_key"
   end
 
   add_foreign_key "accesses", "roles"

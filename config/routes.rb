@@ -22,7 +22,6 @@ Rails.application.routes.draw do
     end
   end
   resources :audit_logs, only: [:index]
-  resources :ssh_preferences, only: [:index]
   resources :users, only: [:index, :show]
 
   namespace :api do
@@ -35,10 +34,6 @@ Rails.application.routes.draw do
       put    'Users/:id', to: 'users#replace'
       patch  'Users/:id', to: 'users#update'
       delete 'Users/:id', to: 'users#destroy'
-
-      # ssh key enpoint has no authentication, it is not part of scim
-      get 'ssh_keys/:username', to: 'ssh_keys#show', constraints: { username: /[^\/]+/ }
-
     end
   end
 
